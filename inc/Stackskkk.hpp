@@ -2,6 +2,8 @@
 #define NEWTRYAGAIN_STACKSKKK_H
 
 
+#include <algorithm>
+
 constexpr int START_CAPACITY = 20;
 constexpr int MEMORY_COEFFICIENT = 2;
 
@@ -24,7 +26,7 @@ public:
     ~Stack();
 
     void push(const T &item);
-//    void push(const T &&item);
+    void push(const T &&item);
     void pop();
     T top() const;
     bool isequal(const Stack& other) const;
@@ -128,11 +130,23 @@ void Stack<T>::push(const T &item)
     size++;
 }
 
-//template<typename T>
-//void Stack<T>::push(const T &&item)
-//{
-//    return;
-//}
+template<typename T>
+void Stack<T>::push(const T &&item)
+{
+    if (cap == capacity - 1)
+    {
+        T *newdata = new T[capacity * MEMORY_COEFFICIENT];
+        for (int i = 0; i < capacity; i++)
+        {
+            newdata[i] = data[i];
+        }
+        delete[] data;
+        data = newdata;
+        capacity *= MEMORY_COEFFICIENT;
+    }
+    data[++cap] = std::move(item);
+    size++;
+}
 
 template<typename T>
 void Stack<T>::pop()
