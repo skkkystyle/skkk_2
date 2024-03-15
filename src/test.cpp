@@ -1,4 +1,6 @@
 #include "../inc/Stackskkk.hpp"
+
+
 #include <iostream>
 
 
@@ -19,7 +21,7 @@
 #define COPYCTEST(type) SIMPLIFY Stack<type> StackCopyC(StackDefault); CHECK(StackDefault.isequal(StackCopyC), true);} CATCHER
 #define COPYATEST(type) SIMPLIFY Stack<type> StackCopyA = StackDefault; CHECK(StackDefault.isequal(StackCopyA), true);} CATCHER
 #define MOVECTEST(type) SIMPLIFY Stack<type> StackTemp(StackDefault), StackMoveC(std::move(StackDefault)); CHECK(StackTemp.isequal(StackMoveC), true);} CATCHER
-#define MOVEATEST(type) SIMPLIFY Stack<type> StackMoveA = std::move(StackDefault); CHECK(StackDefault.isequal(StackMoveA), true);} CATCHER
+#define MOVEATEST(type) SIMPLIFY Stack<type> copy(StackDefault), StackMoveA = std::move(StackDefault); CHECK(StackDefault.isequal(StackMoveA), true);} CATCHER
 
 
 int counter = 1, line;
@@ -34,6 +36,7 @@ void checker(std::string result, std::string answer)
         printf("FALSE\n");
     }
 }
+
 
 void intstackchecker()
 {
@@ -202,8 +205,6 @@ void strstackchecker()
     MOVEATEST(std::string);
     std::cout << "strstackchecked" << std::endl;
 }
-
-
 
 
 int main()

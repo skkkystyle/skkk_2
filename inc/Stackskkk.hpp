@@ -4,6 +4,7 @@
 
 #include <algorithm>
 
+
 constexpr int START_CAPACITY = 20;
 constexpr int MEMORY_COEFFICIENT = 2;
 
@@ -28,6 +29,7 @@ public:
     void push(const T &item);
     void push(const T &&item);
     void pop();
+
     T top() const;
     bool isequal(const Stack& other) const;
     [[nodiscard]] bool isempty() const;
@@ -153,7 +155,7 @@ void Stack<T>::pop()
 {
     if (cap == -1)
     {
-        throw "TRUE Stack is empty! Nothing to pop. ";
+        throw "Stack is empty! Nothing to pop. ";
     }
     size--;
     cap--;
@@ -165,7 +167,7 @@ T Stack<T>::top() const
 {
     if (cap == -1)
     {
-        throw "TRUE Stack is empty! Nothing on top. ";
+        throw "Stack is empty! Nothing on top. ";
     }
     return data[cap];
 }
