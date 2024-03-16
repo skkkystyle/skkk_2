@@ -3,6 +3,7 @@
 
 
 #include <algorithm>
+#include <iostream>
 
 
 constexpr int START_CAPACITY = 20;
@@ -53,6 +54,7 @@ Stack<T>::Stack(const Stack &other)
     cap = other.cap;
     size = other.size;
     data = new T[capacity];
+    //////////////////////
     for (int i = 0; i <= cap; i++)
     {
         data[i] = other.data[i];
@@ -69,6 +71,7 @@ Stack<T> &Stack<T>::operator=(const Stack &other)
         size = other.size;
         delete[] data;
         data = new T[capacity];
+        //////////////////
         for (int i = 0; i <= cap; i++)
         {
             data[i] = other.data[i];
@@ -120,6 +123,7 @@ void Stack<T>::push(const T &item)
     if (cap == capacity - 1)
     {
         T *newdata = new T[capacity * MEMORY_COEFFICIENT];
+        ////////////////////////
         for (int i = 0; i < capacity; i++)
         {
             newdata[i] = data[i];
@@ -138,6 +142,7 @@ void Stack<T>::push(const T &&item)
     if (cap == capacity - 1)
     {
         T *newdata = new T[capacity * MEMORY_COEFFICIENT];
+        //////////////////////
         for (int i = 0; i < capacity; i++)
         {
             newdata[i] = data[i];
