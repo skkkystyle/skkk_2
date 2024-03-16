@@ -47,6 +47,25 @@ Stack<T>::Stack()
     data = new T[capacity];
 }
 
+//template<typename T>
+//typename std::enable_if<std::is_trivially_copyable<T>::value, void>::type
+//copying(T *source, T *target, int n)
+//{
+//    printf("_____suka copy_n\n");
+//    memcpy(target, source, sizeof(source[0]) * n);
+////    std::copy_n(std::begin(source), n, std::begin(target));
+//}
+
+template<typename T>
+//typename std::enable_if<!std::is_trivially_copyable<T>::value, void>::type
+void copying(T *source, T *target, int n)
+{
+    for (int i = 0; i <= n; i++)
+    {
+        target[i] = source[i];
+    }
+}
+
 template<typename T>
 Stack<T>::Stack(const Stack &other)
 {
@@ -54,11 +73,11 @@ Stack<T>::Stack(const Stack &other)
     cap = other.cap;
     size = other.size;
     data = new T[capacity];
-    //////////////////////
-    for (int i = 0; i <= cap; i++)
-    {
-        data[i] = other.data[i];
-    }
+    copying(other.data, data, cap);
+//    for (int i = 0; i <= cap; i++)
+//    {
+//        data[i] = other.data[i];
+//    }
 }
 
 template<typename T>
@@ -71,11 +90,11 @@ Stack<T> &Stack<T>::operator=(const Stack &other)
         size = other.size;
         delete[] data;
         data = new T[capacity];
-        //////////////////
-        for (int i = 0; i <= cap; i++)
-        {
-            data[i] = other.data[i];
-        }
+        copying(other.data, data, cap);
+//        for (int i = 0; i <= cap; i++)
+//        {
+//            data[i] = other.data[i];
+//        }
     }
     return *this;
 }
@@ -123,11 +142,11 @@ void Stack<T>::push(const T &item)
     if (cap == capacity - 1)
     {
         T *newdata = new T[capacity * MEMORY_COEFFICIENT];
-        ////////////////////////
-        for (int i = 0; i < capacity; i++)
-        {
-            newdata[i] = data[i];
-        }
+        copying(data, newdata, capacity - 1);
+//        for (int i = 0; i < capacity; i++)
+//        {
+//            newdata[i] = data[i];
+//        }
         delete[] data;
         data = newdata;
         capacity *= MEMORY_COEFFICIENT;
@@ -142,11 +161,11 @@ void Stack<T>::push(const T &&item)
     if (cap == capacity - 1)
     {
         T *newdata = new T[capacity * MEMORY_COEFFICIENT];
-        //////////////////////
-        for (int i = 0; i < capacity; i++)
-        {
-            newdata[i] = data[i];
-        }
+        copying(data, newdata, capacity - 1);
+//        for (int i = 0; i < capacity; i++)
+//        {
+//            newdata[i] = data[i];
+//        }
         delete[] data;
         data = newdata;
         capacity *= MEMORY_COEFFICIENT;

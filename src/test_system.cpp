@@ -262,7 +262,7 @@ void strstackchecker()
     std::cout << "strstackchecked" << std::endl;
 }
 
-
+#include <algorithm>
 int main()
 {
     intstackchecker();
