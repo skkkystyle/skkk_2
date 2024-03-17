@@ -48,7 +48,15 @@ Stack<T>::Stack()
 }
 
 template<typename T>
-void copying(T *source, T *target, int n)
+typename std::enable_if<std::is_trivially_copyable<T>::value, void>::type
+copying(T *source, T *target, int n)
+{
+    memcpy(target, source, sizeof(T) * (n + 1));
+}
+
+template<typename T>
+typename std::enable_if<!std::is_trivially_copyable<T>::value, void>::type
+copying(T *source, T *target, int n)
 {
     for (int i = 0; i <= n; i++)
     {
